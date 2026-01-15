@@ -31,16 +31,16 @@ fun PokemonPantalla(pokemonCard: PokemonCard) {
         ) {
             AsyncImage(
                 model = ImageRequest.Builder(context = LocalContext.current)
-                    .data("${pokemonCard.image}/high.png")
+                    .data("${pokemonCard.imagen}/high.png")
                     .crossfade(true)
                     .build(),
-                contentDescription = pokemonCard.name,
+                contentDescription = pokemonCard.nombre,
                 contentScale = ContentScale.Fit,
                 modifier = Modifier.fillMaxWidth()
             )
             
             Text(
-                text = pokemonCard.name ?: "Nombre desconocido",
+                text = pokemonCard.nombre ?: "Nombre desconocido",
                 modifier = Modifier.padding(top = 8.dp)
             )
         }
