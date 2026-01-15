@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "com.example.poketgc_api"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.poketgc_api"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
@@ -52,6 +52,10 @@ dependencies {
     // Coil
     implementation("io.coil-kt:coil-compose:2.6.0")
 
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -60,5 +64,7 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
-    implementation("net.tcgdex:java-sdk:1.1.1")
+    // Note: This artifact was causing issues because it was not found in default repositories.
+    // Adding jitpack to settings.gradle.kts might help, but using Retrofit directly is often preferred.
+    // implementation("net.tcgdex:java-sdk:1.1.1")
 }
