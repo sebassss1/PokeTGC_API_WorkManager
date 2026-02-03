@@ -18,8 +18,17 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
 
+/**
+ * Objeto de utilidad para descargar el bitmap de una carta mediante Coil y guardarlo
+ * físicamente en el almacenamiento del dispositivo (Galería) usando MediaStore.
+ */
 object GuardarCarta {
 
+    /**
+     * Descarga la imagen de una carta, la convierte en un bitmap y la guarda en la galería.
+     * @param context Contexto de la aplicación.
+     * @param pokeCard La carta cuya imagen se va a guardar.
+     */
     suspend fun savePokemonImage(context: Context, pokeCard: PokeCard) {
         val imageUrl = "${pokeCard.imagen}/high.png"
         val loader = ImageLoader(context)
@@ -45,6 +54,13 @@ object GuardarCarta {
         }
     }
 
+    /**
+     * Guarda un bitmap en la galería del dispositivo, organizándolo en un álbum específico.
+     * @param context Contexto de la aplicación.
+     * @param bitmap El bitmap a guardar.
+     * @param fileName El nombre del archivo para la imagen guardada.
+     * @return Boolean `true` si se guardó correctamente, `false` en caso contrario.
+     */
     private fun saveBitmapToGallery(context: Context, bitmap: Bitmap, fileName: String): Boolean {
         val albumName = "PokeCards"
         val outputStream: OutputStream?

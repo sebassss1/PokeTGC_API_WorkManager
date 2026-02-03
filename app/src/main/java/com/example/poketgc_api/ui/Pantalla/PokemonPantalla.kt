@@ -1,4 +1,4 @@
-package com.example.poketgc_api.ui.theme.Pantalla
+package com.example.poketgc_api.ui.Pantalla
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -36,6 +36,14 @@ import com.example.poketgc_api.Data.PokeCard
 import com.example.poketgc_api.GuardarCarta
 import kotlinx.coroutines.launch
 
+/**
+ * Componente visual que representa una carta individual en un `Card`.
+ * Incluye la carga de imagen con Coil y acciones para añadir/quitar de listas o guardar en galería.
+ *
+ * @param pokeCard El objeto [PokeCard] que se va a mostrar.
+ * @param isAdded Indica si la carta ya está en una lista.
+ * @param onToggleList Llama a este lambda cuando se pulsa el botón de añadir/quitar.
+ */
 @Composable
 fun PokemonPantalla(
     pokeCard: PokeCard,
