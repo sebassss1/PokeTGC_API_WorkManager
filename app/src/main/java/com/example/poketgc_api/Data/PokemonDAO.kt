@@ -44,6 +44,13 @@ interface PokemonDAO {
     fun getCardsForList(listId: Long): Flow<List<ListCardEntity>>
 
     /**
+     * Obtiene todas las cartas guardadas en todas las listas.
+     * @return Un Flow que emite todas las cartas.
+     */
+    @Query("SELECT * FROM list_cards")
+    fun getAllPokemon(): Flow<List<ListCardEntity>>
+
+    /**
      * Inserta o actualiza una carta en una lista.
      * @param card La entidad de la carta vinculada a la lista.
      */

@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.example.poketgc_api.Data.AppDataBase
+import com.example.poketgc_api.Data.AppDatabase
 import kotlinx.coroutines.flow.first
 
 class BackupWorker(
@@ -17,8 +17,8 @@ class BackupWorker(
 
         return try {
             // Obtenemos la instancia de la base de datos
-            val db = AppDataBase.getDatabase(applicationContext)
-            val dao = db.pokemonDAO()
+            val db = AppDatabase.getDatabase(applicationContext)
+            val dao = db.pokemonDao()
 
             // Obtenemos todas las cartas guardadas (usando Flow.first() para obtener el valor actual)
             val allCards = dao.getAllPokemon().first()
