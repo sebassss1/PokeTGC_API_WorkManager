@@ -61,27 +61,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-/**
- * Enumeración que define las pantallas disponibles en la navegación de la aplicación.
- */
-enum class Screen {
-    Home, MyLists, ViewList, EditList
-}
-
-/**
- Representa la información de una lista de usuario optimizada para la UI.
-  Incluye la entidad de la base de datos y la lista de cartas cargadas.
-
-  @property entity Entidad de Room asociada a la lista.
- @property cards Lista observable de cartas pertenecientes a esta lista.
- */
-class UserListUI(
-    val entity: UsuarioEntidadLista,
-    val cards: MutableList<PokeCard> = mutableStateListOf()
-)
-
-
-//Composable principal que define la estructura y lógica de navegación de la aplicación Pokémon.
-//Gestiona el filtrado de cartas, la interacción con Room para las listas y el Drawer de navegación.
-

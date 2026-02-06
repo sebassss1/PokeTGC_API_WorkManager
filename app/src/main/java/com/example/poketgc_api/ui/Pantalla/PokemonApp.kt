@@ -74,8 +74,8 @@ import com.example.poketgc_api.Data.ListCardEntity
 import com.example.poketgc_api.Data.PokeCard
 import com.example.poketgc_api.Data.PokemonDAO
 import com.example.poketgc_api.Data.UsuarioEntidadLista
-import com.example.poketgc_api.Screen
-import com.example.poketgc_api.UserListUI
+import com.example.poketgc_api.Data.model.Screen
+import com.example.poketgc_api.Data.model.UserListUI
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
