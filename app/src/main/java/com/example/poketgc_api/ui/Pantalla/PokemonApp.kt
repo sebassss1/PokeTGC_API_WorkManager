@@ -32,6 +32,7 @@ import androidx.compose.material.icons.filled.Folder
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.LightMode
 import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.Logout
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -68,7 +69,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.credentials.CredentialManager
 import com.example.poketgc_api.Data.ApiClient
 import com.example.poketgc_api.Data.ListCardEntity
 import com.example.poketgc_api.Data.PokeCard
@@ -81,6 +84,10 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PokemonApp(isDarkMode: Boolean, onDarkModeToggle: (Boolean) -> Unit, dao: PokemonDAO) {
+    val context = LocalContext.current
+    val credentialManager = remember { CredentialManager.create(context) }
+    val scope = rememberCoroutineScope()
+
     var cards by remember { mutableStateOf<List<PokeCard>>(emptyList()) }
 
     // Listas cargadas desde Room
@@ -90,7 +97,7 @@ fun PokemonApp(isDarkMode: Boolean, onDarkModeToggle: (Boolean) -> Unit, dao: Po
     var isLoading by remember { mutableStateOf(true) }
     var errorMessage by remember { mutableStateOf<String?>(null) }
     var isAscending by remember { mutableStateOf(true) }
-    var currentScreen by remember { mutableStateOf(Screen.Home) }
+    var currentScreen by remember { mutableStateOf(Screen.Login) }
 
     var searchQuery by remember { mutableStateOf("") }
     var showFilterDialog by remember { mutableStateOf(false) }
@@ -101,7 +108,6 @@ fun PokemonApp(isDarkMode: Boolean, onDarkModeToggle: (Boolean) -> Unit, dao: Po
     var newListName by remember { mutableStateOf("") }
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-    val scope = rememberCoroutineScope()
 
     val api = remember { ApiClient.api }
 
@@ -145,6 +151,11 @@ fun PokemonApp(isDarkMode: Boolean, onDarkModeToggle: (Boolean) -> Unit, dao: Po
                 }
             }
         }
+    }
+
+    if (currentScreen == Screen.Login) {
+        LoginPantalla(onLoginSuccess = { currentScreen = Screen.Home })
+        return
     }
 
     val filteredAndSortedCards =
@@ -268,6 +279,18 @@ fun PokemonApp(isDarkMode: Boolean, onDarkModeToggle: (Boolean) -> Unit, dao: Po
                         currentScreen = Screen.MyLists; scope.launch { drawerState.close() }
                     },
                     icon = { Icon(Icons.Default.List, null) }
+                )
+                NavigationDrawerItem(
+                    label = { Text("Cerrar Sesión") },
+                    selected = false,
+                    onClick = {
+                        scope.launch {
+                            credentialManager.clearCredentialState(androidx.credentials.ClearCredentialStateRequest())
+                            currentScreen = Screen.Login
+                            drawerState.close()
+                        }
+                    },
+                    icon = { Icon(Icons.Default.Logout, null) }
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 Row(
@@ -521,6 +544,7 @@ fun PokemonApp(isDarkMode: Boolean, onDarkModeToggle: (Boolean) -> Unit, dao: Po
 
                         }
                     }
+                    else -> {}
                 }
             }
         }
